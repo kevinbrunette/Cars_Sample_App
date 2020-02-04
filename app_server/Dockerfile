@@ -30,4 +30,4 @@ COPY dd-java-agent.jar /
 # This set is the leak short circuits to no-op or not, if TRUE leak occures
 ENV LEAKING=TRUE
 
-ENV JAVA_OPTS="-javaagent:/dd-java-agent.jar -Ddd.trace.agent.port=4541 -Ddd.agent.host=msgpack"
+ENV JAVA_OPTS="-javaagent:/dd-java-agent.jar -Ddd.trace.agent.port=8080 -Ddd.agent.host=proxy.observe-staging.svc"
