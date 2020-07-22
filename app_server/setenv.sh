@@ -1,1 +1,1 @@
-export JAVA_OPTS="$JAVA_OPTS -Ddatabase.password=$DATABASE_PASSWORD -Ddatabase.username=$DATABASE_USERNAME"
+export JAVA_OPTS="$JAVA_OPTS -Ddatabase.password=$DATABASE_PASSWORD -Ddatabase.username=$DATABASE_USERNAME -javaagent:/usr/local/tomcat/opentelemetry-javaagent-all.jar -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager"

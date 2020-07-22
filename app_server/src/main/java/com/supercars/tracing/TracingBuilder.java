@@ -5,16 +5,11 @@
  */
 package com.supercars.tracing;
 
-import brave.Tracing;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import zipkin2.Span;
-import zipkin2.reporter.AsyncReporter;
-import zipkin2.reporter.Sender;
-import zipkin2.reporter.urlconnection.URLConnectionSender;
 
 /**
  *
@@ -24,24 +19,9 @@ public class TracingBuilder {
 
     private static final TracingBuilder traceBuilder = new TracingBuilder();
 
-    private final Sender sender;
-    private final AsyncReporter<Span> spanReporter;
-    private final Map<String, Tracing> tracings;
-
     private TracingBuilder() {
         
-        sender = URLConnectionSender.newBuilder().endpoint(getZipkinEndpoint()).build();
-        //sender = URLConnectionSender.create(getZipkinSink());
-        ZipkinMetricReporter metrics = new ZipkinMetricReporter();
-        spanReporter = AsyncReporter.builder(sender)
-                .metrics(metrics)
-                .messageMaxBytes(2000*1024)
-                .queuedMaxSpans(20000)
-                .queuedMaxBytes((int) (Runtime.getRuntime().totalMemory() * 0.05))
-                .build();
-        Thread t = new Thread(metrics);
-        t.start();
-        tracings = new HashMap();
+        // No Op
     }
 
     private static String getZipkinEndpoint() {
@@ -56,28 +36,9 @@ public class TracingBuilder {
         return traceBuilder;
     }
 
+    /*
     public Tracing getTracing(String serviceName) {
-        if (tracings.containsKey(serviceName)) {
-            return tracings.get(serviceName);
-        } else {
-            Tracing tracing = Tracing.newBuilder()
-                    .localServiceName(serviceName)
-                    .spanReporter(spanReporter).build();
-            tracings.put(serviceName, tracing);
-            return tracing;
-        }
+        return null;
     }
-
-    @Override
-    protected void finalize() {
-        try {
-            for (Tracing tracing : tracings.values()) {
-                tracing.close();
-            }
-            spanReporter.close();
-            sender.close();
-        } catch (IOException ex) {
-            Logger.getLogger(TracingBuilder.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+*/
 }

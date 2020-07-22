@@ -5,9 +5,6 @@
  */
 package com.supercars.logging;
 
-import brave.Span;
-import brave.Tracer;
-import brave.Tracing;
 import java.util.logging.LogRecord;
 import java.util.logging.SimpleFormatter;
 
@@ -25,25 +22,12 @@ public class CarLogFormatter extends SimpleFormatter {
     }
 
     private String getSpanID() {
-        Tracer tracer = Tracing.currentTracer();
-        if (tracer != null) {
-            Span span = tracer.currentSpan();
-            if (span != null) {
-                return span.context().spanIdString();
-                
-            }
-        }
+        
         return "BLANK";
     }
     
     private String getTraceID() {
-        Tracer tracer = Tracing.currentTracer();
-        if (tracer != null) {
-            Span span = tracer.currentSpan();
-            if (span != null) {
-                return span.context().traceIdString();
-            }
-        }
+        
         return "BLANK";
     }
 }

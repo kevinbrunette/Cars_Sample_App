@@ -5,8 +5,6 @@
  */
 package com.supercars.externaldata;
 
-import brave.Tracing;
-import brave.jaxrs2.TracingClientFilter;
 import com.supercars.Car;
 import com.supercars.Manufacturer;
 import com.supercars.InsuranceQuote;
@@ -15,7 +13,6 @@ import com.supercars.dataloader.CarDataLoader;
 import com.supercars.preferences.Preference;
 import com.supercars.preferences.PreferenceException;
 import com.supercars.preferences.PreferenceManager;
-import com.supercars.tracing.TracingHelper;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.logging.Level;
@@ -32,7 +29,7 @@ import javax.ws.rs.core.MediaType;
  */
 public class InsuranceQuotes {
 
-    static Tracing tracing = TracingHelper.getTracing(TracingHelper.INSURANCE_NAME);
+    //static Tracing tracing = TracingHelper.getTracing(TracingHelper.INSURANCE_NAME);
 
     private final static Logger logger = Logger.getLogger(InsuranceQuotes.class.getName());
     
@@ -66,7 +63,7 @@ public class InsuranceQuotes {
         logger.fine("Using sync HTTP call");
         Client client = ClientBuilder.newClient();
         WebTarget target = client.target("http://insurance:8000/insurance/simpleQuote");
-        target.register(TracingClientFilter.create(tracing));
+        //target.register(TracingClientFilter.create(tracing));
         return target.request(MediaType.APPLICATION_JSON)
                 .post(Entity.entity(quoteRequest, MediaType.APPLICATION_JSON), InsuranceQuote.class);
     }

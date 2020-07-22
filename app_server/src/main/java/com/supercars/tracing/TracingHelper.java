@@ -5,9 +5,6 @@
  */
 package com.supercars.tracing;
 
-import brave.Tracer;
-import brave.Tracing;
-
 /**
  *
  * @author tombatchelor
@@ -20,6 +17,7 @@ public class TracingHelper {
     public static final String RATING_NAME = "car-rating";
     public static final String LOAN_NAME = "car-loan";
     
+    /*
     public static Tracing getTracing(String serviceName) {
         return TracingBuilder.getInstance().getTracing(serviceName);
     }
@@ -27,9 +25,10 @@ public class TracingHelper {
     public static Tracer getTracer(String serviceName) {
         return getTracing(serviceName).tracer();
     }
+*/
     
     public static void tag(String serviceName, String key, String value) {
-        getTracer(serviceName).currentSpanCustomizer().tag(key, value);
+        // No op
     }
     
     public static void tag(String serviceName, String key, double value) {

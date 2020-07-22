@@ -5,12 +5,9 @@
  */
 package com.supercars.externaldata;
 
-import brave.jaxrs2.TracingClientFilter;
-import com.supercars.InsuranceQuote;
 import com.supercars.ZendeskTicket;
 import java.util.Random;
 import com.supercars.ZendeskComment;
-import static com.supercars.externaldata.FuelPrices.tracing;
 import java.util.logging.Logger;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -70,7 +67,7 @@ public class Zendesk {
         logger.fine("Using sync HTTP call");
         Client client = ClientBuilder.newClient();
         WebTarget target = client.target(observeURL);
-        target.register(TracingClientFilter.create(tracing));
+        //target.register(TracingClientFilter.create(tracing));
         target.request(MediaType.APPLICATION_JSON)
                 .header("Authorization", bearer)
                 .post(Entity.entity(ticket, MediaType.APPLICATION_JSON));

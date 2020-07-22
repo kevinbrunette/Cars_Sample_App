@@ -36,14 +36,6 @@
     </welcome-file-list>
     <!-- Adding Brave to support tracing through Zipkin -->
     <filter>
-        <filter-name>tracingFilter</filter-name>
-        <filter-class>com.supercars.tracing.DelegatingTracingFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>tracingFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
-    <filter>
         <filter-name>observeTagFilter</filter-name>
         <filter-class>com.supercars.tracing.ObserveTagFilter</filter-class>
     </filter>

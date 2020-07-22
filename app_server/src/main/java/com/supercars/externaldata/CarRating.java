@@ -5,8 +5,6 @@
  */
 package com.supercars.externaldata;
 
-import brave.Tracing;
-import brave.jaxrs2.TracingClientFilter;
 import com.supercars.Car;
 import com.supercars.Manufacturer;
 import com.supercars.Rating;
@@ -18,7 +16,6 @@ import com.supercars.tracing.TracingHelper;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import com.supercars.preferences.PreferenceException;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ws.rs.client.Client;
@@ -26,7 +23,6 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
 /**
@@ -37,7 +33,7 @@ public class CarRating {
 
     private static String carRatingEndpoint = System.getenv("RATING_ENDPOINT");
     
-    private static Tracing tracing = TracingHelper.getTracing(TracingHelper.RATING_NAME);
+    //private static Tracing tracing = TracingHelper.getTracing(TracingHelper.RATING_NAME);
 
     private final static Logger logger = Logger.getLogger(CarRating.class.getName());
     
@@ -72,7 +68,7 @@ public class CarRating {
     private static Rating getCarRatingSync(RatingRequest ratingRequest) throws Exception {
         Client client = ClientBuilder.newClient();
         WebTarget target = client.target(carRatingEndpoint);
-        target.register(TracingClientFilter.create(tracing));
+        //target.register(TracingClientFilter.create(tracing));
         Response response = target.request(MediaType.APPLICATION_JSON).post(Entity.entity(ratingRequest, MediaType.APPLICATION_JSON));
         String amzRequestId = response.getHeaderString("x-amzn-RequestId");
         TracingHelper.tag(TracingHelper.CARS_APP_NAME, "AmazonRequestId", amzRequestId);
